@@ -37,7 +37,7 @@ exports.deleteTask = async (req, res) => {
   }
 };
 
-exports.getTasks = async (req, res) => {
+exports.getAllTasks = async (req, res) => {
   const { status } = req.query;
   const where = { userId: req.user.userId };
 

@@ -5,8 +5,6 @@ const morgan = require('morgan');
 const cors = require('cors');
 
 
-
-
 const sequelize = new Sequelize(
     process.env.DB_NAME,process.env.DB_USERNAME,process.env.DB_PASSWORD,{
         host:"localhost",
@@ -22,9 +20,9 @@ app.use(cors({
 }))
 
 //load models 
-const UserModel = require('./models/user.model.js')(sequelize,DataTypes);
-const db = {User : UserModel};
-global.models =db;
+// const UserModel = require('./models/user.model.js')(sequelize,DataTypes);
+// const db = {User : UserModel};
+// global.models =db;
 
 app.use(morgan("tiny"));
 
@@ -34,11 +32,11 @@ app.use('/api/auth', authRoutes);
 const taskRoutes = require('./routes/task.routes.js')
 app.use('/api',taskRoutes);
 
-
+const db = require('./models');
 (
     async()=>{
         try {
-            await sequelize.sync({ alter: true });
+            await db.sequelize.sync({ alter: true });
             console.log("Databse Sync");
             app.listen(port, ()=> console.log(`Server is running on PORT:http://localhost:${port}`))
         } catch (error) {

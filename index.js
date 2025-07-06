@@ -28,6 +28,9 @@ app.use(morgan("tiny"));
 
 const authRoutes = require('./routes/user.routes.js');
 app.use('/api/auth', authRoutes);
+app.use("/health", (req, res) => {
+    res.status(200).json({message: "Server is healthy"});
+});
 
 const taskRoutes = require('./routes/task.routes.js')
 app.use('/api',taskRoutes);
